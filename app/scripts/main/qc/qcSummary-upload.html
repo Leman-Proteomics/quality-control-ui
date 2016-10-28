@@ -1,0 +1,9 @@
+<div ng-controller="QcSummaryLoadCtrl" style="height:500px; width:960px">
+  <h1>Upload QcSummary</h1>
+    <row><input type="file" id="file" multiple><button ng-click="uploadFiles()">upload me</button></row>
+  <ul>
+    <li ng-repeat="file in fileList">
+      {{file.name}}
+    </li>
+  </ul>
+</div>

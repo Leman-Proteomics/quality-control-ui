@@ -1,0 +1,54 @@
+<div ng-controller="QexHFTransInfoCtrl">
+
+  <div ng-if="showDiv==='list'">
+    <h2>{{title}}</h2>
+    <label>DateFrom:<input type="text" ng-model="dateFrom"></label>
+    <label>DateTo:<input type="text" ng-model="dateTo"></label>
+    <button ng-click="showChart(dateFrom,dateTo)">Show Qex Transmission Chart</button><br>
+
+    <hr>
+
+    <ng-form name="insertForm">
+      <table >
+        <tr>
+          <td><input type="text" name="transDate" style="width:90%" ng-model="transDate" placeholder="20160718" ng-pattern="reDate" required/><br>
+            <span ng-show="insertForm.transDate.$error.pattern"  style="color:red">Date should be in valid format.</span>
+          </td>
+          <td><input type="text"  name="TransResult" style="width:90%" ng-model="TransResult" placeholder="1213.44" ng-pattern="reNumber" required><br>
+            <span ng-show="insertForm.TransResult.$error.pattern"  style="color:red">TransResult should be valid number.</span>
+          </td>
+          <td><input type="text"  style="width:90%" ng-model="Comment"></td>
+          <td><input type="button" value="Add" ng-click="addQexTransInfo(transDate,TransResult,Comment)"></td>
+        </tr>
+      </table>
+    </ng-form>
+    <hr>
+    <table style="width:75%" class="table table-bordered table-hover ">
+      <colgroup>
+        <col width="20%" />
+        <col width="20%" />
+        <col width="20%" />
+        <col width="15%" />
+      </colgroup>
+      <tr>
+        <th>Date </th>
+        <th>TransResult</th>
+        <th>Comment</th>
+        <th>&emsp;</th>
+      </tr>
+      <tr ng-repeat="transInfo in qexTransInfos">
+        <td>{{transInfo.transDate}}</td>
+        <td>{{transInfo.TransResult}}</td>
+        <td>{{transInfo.Comment}}</td>
+        <td><input type="button" value="Delete" ng-click="delQexTransInfo('{{transInfo.transDate}}','{{transInfo.transIndex}}')"></td>
+      </tr>
+    </table>
+  </div>
+  <div ng-if="showDiv==='chart'">
+    <h3>{{title}}</h3>
+    <button ng-click="$back()">Back</button>
+    <row><qexhf-chart qex-data="qexData"></qexhf-chart>
+      <div-chart id="pepseqidf" scatter-data="pepseqidfScatData" line-data="pepseqidfLineData"></div-chart></row>
+  </div>
+
+</div>
